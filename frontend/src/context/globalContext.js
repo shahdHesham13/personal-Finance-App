@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { createContext, useEffect, useContext, useState } from "react"
 import axios from 'axios'
 
 
@@ -7,70 +7,90 @@ const BASE_URL = "http://localhost:5000/api/v1/";
 
 const GlobalContext = React.createContext()
 
+
 export const GlobalProvider = ({children}) => {
 
     const [incomes, setIncomes] = useState([])
     const [expenses, setExpenses] = useState([])
     const [error, setError] = useState(null)
 
+    axios.defaults.withCredentials = true;
+
     //calculate incomes
     const addIncome = async (income) => {
-        const response = await axios.post(`${BASE_URL}add-income`, income)
-            .catch((err) =>{
-                setError(err.response.data.message)
-            })
-        getIncomes()
-    }
+        try {
+          const response = await axios.post(`${BASE_URL}add-income`, income);
+          getIncomes();
+        } catch (err) {
+          setError(err.response?.data?.message || "An error occurred");
+        }
+      };
 
     const getIncomes = async () => {
-        const response = await axios.get(`${BASE_URL}get-incomes`)
-        setIncomes(response.data)
-        console.log(response.data)
-    }
+        try {
+          const response = await axios.get(`${BASE_URL}get-incomes`);
+          setIncomes(response.data);
+          console.log(response.data);
+        } catch (err) {
+          setError(err.response?.data?.message || "An error occurred");
+        }
+      };
 
     const deleteIncome = async (id) => {
-        const res  = await axios.delete(`${BASE_URL}delete-income/${id}`)
-        getIncomes()
-    }
-
+        try {
+          const res = await axios.delete(`${BASE_URL}delete-income/${id}`);
+          getIncomes();
+        } catch (err) {
+          setError(err.response?.data?.message || "An error occurred");
+        }
+      };
+    
     const totalIncome = () => {
         let totalIncome = 0;
-        incomes.forEach((income) =>{
-            totalIncome = totalIncome + income.amount
-        })
-
+        incomes.forEach((income) => {
+          totalIncome = totalIncome + income.amount;
+        });
         return totalIncome;
-    }
+      };
 
 
     //calculate incomes
-    const addExpense = async (income) => {
-        const response = await axios.post(`${BASE_URL}add-expense`, income)
-            .catch((err) =>{
-                setError(err.response.data.message)
-            })
-        getExpenses()
-    }
-
+const addExpense = async (expense) => {
+        try {
+          const response = await axios.post(`${BASE_URL}add-expense`, expense);
+          getExpenses();
+        } catch (err) {
+          setError(err.response?.data?.message || "An error occurred");
+        }
+      };
+    
     const getExpenses = async () => {
-        const response = await axios.get(`${BASE_URL}get-expenses`)
-        setExpenses(response.data)
-        console.log(response.data)
-    }
+        try {
+          const response = await axios.get(`${BASE_URL}get-expenses`);
+          setExpenses(response.data);
+          console.log(response.data);
+        } catch (err) {
+          setError(err.response?.data?.message || "An error occurred");
+        }
+      };
 
     const deleteExpense = async (id) => {
-        const res  = await axios.delete(`${BASE_URL}delete-expense/${id}`)
-        getExpenses()
-    }
+        try {
+          const res = await axios.delete(`${BASE_URL}delete-expense/${id}`);
+          getExpenses();
+        } catch (err) {
+          setError(err.response?.data?.message || "An error occurred");
+        }
+      };
+
 
     const totalExpenses = () => {
-        let totalIncome = 0;
-        expenses.forEach((income) =>{
-            totalIncome = totalIncome + income.amount
-        })
-
-        return totalIncome;
-    }
+            let totalExpense = 0;
+            expenses.forEach((expense) => {
+              totalExpense = totalExpense + expense.amount;
+            });
+            return totalExpense;
+          };
 
 
     const totalBalance = () => {

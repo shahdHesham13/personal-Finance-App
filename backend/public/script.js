@@ -45,10 +45,9 @@ async function login(email, password) {
 
         const data = await response.json();
         if (response.ok) {
-            // Redirect to welcome page
             window.location.href = "http://localhost:3000";
         } else {
-            alert(data.message); // Show error message
+            alert(data.message);
         }
     } catch (error) {
         console.error("Error during login:", error);
@@ -70,10 +69,9 @@ async function register(name, email, password) {
 
         const data = await response.json();
         if (response.ok) {
-            // Redirect to welcome page
-            window.location.href = "/welcome.html";
+            window.location.href = "/LoginForm.html";
         } else {
-            alert(data.message); // Show error message
+            alert(data.message);
         }
     } catch (error) {
         console.error("Error during registration:", error);

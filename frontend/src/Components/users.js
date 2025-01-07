@@ -6,7 +6,7 @@ const Users = () => {
 
   useEffect(() => {
     // Fetch data from the userRoutes API
-    axios.get('http://localhost:3000/api/v1/users')
+    axios.get('http://localhost:3000/api/v1/users', { withCredentials: true })
       .then(response => {
         console.log(response.data);
         setUsers(response.data);
@@ -21,7 +21,7 @@ const Users = () => {
       <h1>Users</h1>
       <ul>
         {users.map((user, index) => (
-          <li key={index}>{user.name}</li> // Update to match your data structure
+          <li key={index}>{user.name}</li>
         ))}
       </ul>
     </div>
