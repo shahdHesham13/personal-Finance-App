@@ -2,7 +2,7 @@
 
 A Personal Finance Management App to help users manage their income and track their expenses effectively. Whether you're tracking your monthly budget to monitor your financial health, analyzing spending habits, or planning for future savings. The app provides an intuitive interface for categorizing transactions, setting spending limits, and gaining insights through visual analytics.
 
----
+
 
 ## **Features**
 
